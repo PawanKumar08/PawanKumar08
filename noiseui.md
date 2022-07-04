@@ -25,8 +25,9 @@ page_type: 'sub-page'
 <li id="m_getting-started-with-orbiwan-edge" ><a href="#exporting-the-data">Exporting the data</a></li>
 <li id="m_getting-started-with-orbiwan-edge" ><a href="#event">Event</a></li>
 <li id="m_getting-started-with-orbiwan-edge" ><a href="#groups">Groups</a></li>
-<li id="m_getting-started-with-orbiwan-edge" ><a href="#configuration">Configuration</a></li>
-<li id="m_getting-started-with-orbiwan-edge" ><a href="#accounts">Accounts</a></li>
+<li id="m_getting-started-with-orbiwan-edge" ><a href="#global-threshold">Global Threshold</a></li>
+<li id="m_getting-started-with-orbiwan-edge" ><a href="#event-definition">Event Definition</a></li>
+<li id="m_getting-started-with-orbiwan-edge" ><a href="#users">Users</a></li>
 <!--<li id="m_getting-started-with-orbiwan-edge" ><a href="#tenant">Tenant</a></li>
 <li id="m_getting-started-with-orbiwan-edge" ><a href="#tags-1">Tags</a></li>-->
 <li id="m_getting-started-with-orbiwan-edge" ><a href="#login-forwarding">Login Forwarding</a></li>
@@ -172,6 +173,7 @@ The newest events table shows latest 25 events. The table allows users to filter
 | Groups/Tags             | Text (Partial).              | Groups(tags) assigned to event.         |
 
 
+The columns in the event table are:
 
 | Column                   | Description                                                           |
 | ------------------------ | --------------------------------------------------------------------- |
@@ -353,6 +355,19 @@ visualization page.
 
 ![OrbiwanImages]({{ page.image_path }}/QuickView-15Min.png)
 
+- **Average OPB Periods**
+
+This chart shows the average OPB chart for Leq similar to the one on visualization page.
+
+![OrbiwanImages]({{ page.image_path }}/DayNight.png)
+
+**Average 24 hours**
+
+This chart shows the average 24 hour for Leq similar to the one on visualization page.
+
+![OrbiwanImages]({{ page.image_path }}/Average24.png)
+
+
 <!-- - Average OPB Periods
 
 This chart shows the average OPB chart for Leq, Lmin, Lmax similar to the one on visualization
@@ -379,7 +394,7 @@ It allows users to click on any location and see a popup with high level details
 
 ![OrbiwanImages]({{ page.image_path }}/Device-Marker.png)
 
-## Location
+## Locations
 
 Allows users to manage locations and generate and export statistics for selected locations.
 
@@ -409,8 +424,12 @@ The last column in the table is Action column. Following options are available f
 
 - __Edit:__ Allows you to edit the location details and device mappings
 
-- __Delete:__ Allows you to delete the location. Before the location gets deleted, the devices mapped to locations
-will be dis-associated, the tag mappings will be removed.
+- __Delete:__ Allows you to delete the location. Before the location gets deleted, the devices mapped to locationswill be dis-associated, the tag mappings will be removed.
+
+User can select one or more location and export statistics about the location. The exported statistics table contains the following:
+
+- Location details.
+- Day and night data averages statistics for Leq, Lmin, Lmax, L10, L50, L90, L95 - mean, std etc.
 
 ![OrbiwanImages]({{ page.image_path }}/Location_option01.png)
 
@@ -438,7 +457,7 @@ The following screen is for adding a location:
 
 ![OrbiwanImages]({{ page.image_path }}/Location-AddLocation.png)
 
-Below are the Mandatory fields required.
+For Geolocation tab, the fields are: 
 
 | Field                    | Mandatory | Description                                                           |
 | ------------------------ | --------- | --------------------------------------------------------------------- |
@@ -449,7 +468,7 @@ Below are the Mandatory fields required.
 | Comment                  | N         | A comment about the location.                                         |
 | Image                    | N         | Any image of the location.                                            |
 
-A location is uniquely identified using latitude-longitude pair.
+A location is uniquely identified using using its name.
 
 This is the only mandatory form needed to create a location.
 
@@ -475,7 +494,7 @@ There is a button to associate devices - **Associate Device**. Once user clicks 
 
 ![OrbiwanImages]({{ page.image_path }}/AssociateDevice-Add.png)
 
-Below are the Mandatory fields required.
+The fields are:
 
 | Field     | Mandatory | Description                                                                                      |
 | --------- | --------- | ------------------------------------------------------------------------------------------------ |
@@ -486,13 +505,13 @@ Below are the Mandatory fields required.
 | Direction | Y         | Direction of the deivce at the location                                                          |
 | Active    | Y         | Whether this device still exists at the location. By default it is yes.                          |
 
-**Note:** The option “Active” is provided so that old devices can be associated along with to date.
-
-**Note:** For an inactive listing, to date is mandatory. If user is providing a to date, the association automatically becomes inactive.
+**Note:** The option “Active” is provided so that old devices can be associated along with to date.For an inactive listing, to date is mandatory. If user is providing a to date, the association automatically becomes inactive.
 
 All devices being associated are placed into Newly Associated Devices before the mappings are saved to database. All of the associated devices are listed in Associated Devices table.
 
 ### Location-Tags
+
+Please note that throughout the document, tags and groups are inter-changeable. They refer to the same thing. Using tenant profile, you can choose whether you want to use Groups or Tags.
 
 Users can also add tags to the location which can later be used for filtering. The following
 screen shows the tab content:
@@ -541,6 +560,8 @@ files.
 After clicking export NoiseApp will start processing and will generate the statistics. It will finally download a csv files.
 
 ![OrbiwanImages]({{ page.image_path }}/StatisticsExportLocationProcessing.png)
+
+Please note that statistics generation is a time consuming task due to a lot of calculations being done for each location selected.
 
 
 
@@ -605,15 +626,15 @@ Action Menu allows users to:
 
 - Disassociate from the location
 
-- Edit device details
+- Edit device details: Allows you to update the saved device object.
 
-- Delete device
+- Delete device: This allows you to configure the (actual)device.
 
 When edit device is clicked in actions, the following figure shows the edit device form:
 
 ![OrbiwanImages]({{ page.image_path }}/EditDevice.png)
 
-Users can update name, add a comment, date of installation and battery installation. The **Compute data** flag decides if the data for device should be computed or not.
+Users can update name, add a comment, date of installation and battery installation. <!--The **Compute data** flag decides if the data for device should be computed or not.-->
 
 ### Device Settings
 
@@ -713,7 +734,9 @@ User can select upto 5 more locations to compare. Based on the number selected, 
 
 - Choose one or more from the parameters - L10, L50, L90, L95, Lmin, Lmax, Leq, vBat, nMeas, Temperature.
 
-- Select a chart from the following types. More about these charts is explained in next section in this chapter.
+- Select a chart type to generate. More about these charts is explained in next section in this chapter.
+
+<!-- - Select a chart from the following types. More about these charts is explained in next section in this chapter.
 
   - Average 15 Min.
 
@@ -732,9 +755,17 @@ User can select upto 5 more locations to compare. Based on the number selected, 
   - Multiple location - one chart for each parameter showing all selected locations.
 
 - If nMeas, Temp, VBat are selected, then it should show different chart for each of these
-  parameters, since the scale for all three are different.
+  parameters, since the scale for all three are different.-->
 
 ### Charts
+
+**Accumulated Average**
+
+It is possible to display the cumulative average values between the two dates selected by the user. For each parameter selected, the noise level is accumulated for day and night values. The difference between day and night value is also plotted.
+
+![OrbiwanImages]({{ page.image_path }}/Accumulated_Average_Chart.png)
+
+
 
 **Average 15 Mins**
 
@@ -749,15 +780,54 @@ selected parameter, µ and σ are calculated and plotted as a straight horizonta
 
 ![OrbiwanImages]({{ page.image_path }}/miue_and_sigma.png)
 
+**Average 15 min chart with Global Thresholds**
+
+Sometimes, you need to visualise the data to identify a good threshold level so that it can be used in rules. If a 
+parameter value is more than the threshold, then an event should be raised. To identify this threshold, Average 15 min 
+chart can help. - Select a global threshold from the global threshold filter from left side. - As soon as filter is selected, it 
+would appear as:
+   
+    ![SampolsApp Navigation - global threshold filter](./images/noiseapp-ui-page-visualizations global-th-filter-2.2.png){#fig:SampolsApp-Navigation-Vis-Global-Threshold-Filter}
+
+   - The chart will also update to plot the global threshold.
+
+   ![OrbiwanImages]({{ page.image_path }}/Chart_with_threshold.png)
+
+   - A data summary will be printed with approximate number of events which will be raised with selected 
+threshold.
+
+   ![OrbiwanImages]({{ page.image_path }}/Data_Interpreted.png)
+
+   - Users can change the global threshold values by editing it and re-plotting the charts. User can click on the edit button just below the global thresholds filter and a modal opens with threshold values.
+
+![OrbiwanImages]({{ page.image_path }}/update.png)
+![OrbiwanImages]({{ page.image_path }}/update_threshold.png)
 
 
-**Average OPB Periods**
+   - In case, there is no global threshold available, user can select Create New from global thresholds filter. This will open a similar UI as creating a new threshold but the name and variable field will not be present. User can just press OK and the new values will be used.
 
-The data collected over the day is aggregated further and two aggregations are done per day. For the night period and day period. This data is plotted as Average OPB period chart.
+   ![OrbiwanImages]({{ page.image_path }}/Global_Threshold_New.png)
 
-![OrbiwanImages]({{ page.image_path }}/AverageOPBGraph.png)
 
-The grey lines(as a pulse) on the chart indicate day(high) and night period(low). The grey dashed lines(as a pulse) on the chart indicate weekdays (high), and weekends(low).
+
+
+   - Once the threshold values look good, the global threshold can be saved.
+   - If Tenant profile has enabled Visualisation > Show param histogram as main chart config, 
+then the distributions for selected parameters are also plotted as an additonal chart below the Average 15 min Chart.
+
+![OrbiwanImages]({{ page.image_path }}/Parameter_distribution.png)
+
+   - This is a plot as Parameter Leq on x-axis and Number of Data Points on y-axis. Along with the distribution chart also plots -3σ, -2σ, -σ, σ, 2σ, 3σ values highlighting the area.
+
+**Events with Average 15 min Chart**
+
+ If Tenant profile has enabled Visualisation > Show events on charts config, then the events also plotted on __Average 15 min Chart__.
+
+ 
+
+ ![OrbiwanImages]({{ page.image_path }}/Event_visulization.png)
+
+ This is a plot as Parameter Leq on x-axis and Number of Data Points on y-axis. Along with the distribution chart also plots -3σ, -2σ, -σ, σ, 2σ, 3σ values highlighting the area.
 
 **Average 24 Hour**
 
@@ -767,7 +837,241 @@ Since the sensors are sending noise levels once every 15 minutes, there would be
 
 The parameters used for the curve fitting are displayed below the chart. In the image, it can be seen that a table is generated for curve fitting parameters for Leq for Mon-Fri, Sat-Sun, Mon- Sun. The parameters are - Beta1, Beta2, t1, t2, Lmin, Lmax and R2.
 
-**Accumulated Average**
+
+**Day/Night Averages Chart**
+
+The data collected over the day is aggregated further and two aggregations are done per day. For the night period and day period. This data is plotted as Average OPB period chart.
+
+![OrbiwanImages]({{ page.image_path }}/AverageOPBGraph.png)
+
+The grey lines(as a pulse) on the chart indicate day(high) and night period(low). The grey dashed lines(as a pulse) on the chart indicate weekdays (high), and weekends(low).
+
+**Event Duration Distribution Chart (Data Counts)**
+
+  - This chart plots the distribution of event durations. Event duration is calculated as event_end_time - event_start_time. The value is converted(and rounded) to minutes.
+  - This chart is similar to the event duration distribution chart with percentage with a minor difference. The values shown on y-axis here are not percentage.
+  - A sample chart is shown below:
+    
+
+![OrbiwanImages]({{ page.image_path }}/Event_Duration_Distribution.png)
+
+![OrbiwanImages]({{ page.image_path }}/Statistic_event.png)
+
+In the chart above x-axis is the duration in minutes and y axis shows the number of events.
+
+This chart only considers closed events since for active events, duration calculated will be based on assumption and not real.
+
+__Chart Summary__
+
+   - Just below the chart, a summary is also printed. Along with the filters used for generating the chart, It shows top 
+events, total events, and average duration taken by all events.
+   - An event wise summary is also printed where number of total and closed events are printed along with average 
+duration for all event types. Average duration will be zero if there are no closed events.
+   - How the chart is generated ?
+      - For the given duration, tag, location, device filters, we collect the all events from database.
+      - For all closed events, duration is calculated
+          - duration => end_time - start_time
+      - This duration is converted into minutes.
+      - For each unique duration, we count the events.
+      - Using the this duration, we plot the distribution.
+          - On x-axis, we have duration in minutes.
+          - On y-axis, we have count of events which took a particular duration.
+
+
+**Event Duration Distribution Chart (Percentage)**
+
+This chart plots the distribution of event durations. The event count is shown as percentage for this chart. Event duration is calculated as event_end_time - event_start_time. The value is converted(and rounded) to minutes.
+
+This chart helps you to know - how long the events last. Assuming if a noise event is being analysed using this chart. If the events are taking a lot of time to close, that means the noise stays high for longer duration than expected. Since this chart directly gives us a percentage value, we can see the percentage of events with a certain duration.
+
+A sample chart is shown below:
+
+![OrbiwanImages]({{ page.image_path }}/Event_Distribution_percent_visual.png)
+
+![OrbiwanImages]({{ page.image_path }}/Event_Distribution_statistic.png)
+
+In the chart above x-axis is the duration in minutes and y axis shows the percentage of events.
+
+This chart only considers closed events since for active events, duration calculated will be based on assumption and not real.
+
+__Chart Summary__
+
+Just below the chart, a summary is also printed. Along with the filters used for generating the chart, It shows top events, total events, and average duration taken by all events.
+
+An event wise summary is also printed where number of total and closed events are printed along with average duration for all event types. Average duration will be zero if there are no closed events.
+
+How the chart is generated ?
+   - For the given duration, tag, location, device filters, we collect the all events from database.
+   - For all closed events, duration is calcuated.
+      - duration => end_time - start_time.
+   - This duration is converted into minutes.
+   - We count the total events i.e. total_events.
+   - For each unique duration, we count the events.
+   - Then for each duration, we calculate percentage of events,
+     - (events_at_a_duration / total_events) * 100
+     - e.g. if there were 10 events which lasted for 5 minutes, then event_at_a_duration = 10.
+   - Using the this duration, we plot the distribution.
+     - On x-axis, we have duration in minutes.
+     - On y-axis, we have % of events which took a particular duration.
+
+**Event During the Day Chart (Data Counts)**  
+
+This chart allows users to see the number of events each hour of the day. Bins for each hour of the day are 
+created. Total 24. All of the events are put into these bins based on their start_time. This data is plotted and a sample 
+is as below: 
+
+![OrbiwanImages]({{ page.image_path }}/Event_during_day_statistic.png)
+
+![OrbiwanImages]({{ page.image_path }}/Event_during_day_visulization.png)
+
+How the chart is generated ?
+   - For the given duration, tag, location, device filters, we collect the all events from database.
+   - Each data row has start_time (time at UTC).
+   - All these start_time are converted to tenant’s local time // TODO.
+   - For all events, hour value is extracted from the start_time.
+   - Using the this time, we find the hour of day.
+   - For each hour the data is grouped and events are counted.
+   - For each hour then the percentage of events is calculated against total number of events.
+   - Then the data is plotted.
+     - 1h on x-axis says = all events during 00:00 to 01:00 hour.
+     - 4h on x-axis says = all events during 03:00 to 04:00 hour.
+
+**Event During the Day Chart (Percentage)**
+
+This chart is similar to the previous chart Events During the day chart with data counts. The only difference here is that the values on y-axis are percentage.
+
+![OrbiwanImages]({{ page.image_path }}/Event_day_percentage.png_visual.png)
+
+![OrbiwanImages]({{ page.image_path }}/Event_day_percentage.png)
+
+How the chart is generated ?
+
+   - For the given duration, tag, location, device filters, we collect the all events from database.
+   - Each data row has start_time (time at UTC).
+   - All these start_time are converted to tenant’s local time.
+   - For all events, hour value is extracted from the start_time.
+   - Using the this time, we find the hour of day.
+   - For each hour the data is grouped and events are counted.
+   - Then the data is plotted.
+      - 1h on x-axis says = all events during 00:00 to 01:00 hour
+      - 4h on x-axis says = all events during 03:00 to 04:00 hour  
+
+
+**Noise Distribution (Data counts)**
+
+This is a simple distribution of noise levels for a given time period. This chart also allows users to see the mu, sigma values and how the distribution spreads around mu. This chart gives an idea about the average noise overall along with minimum and maximum values. Visually it also allows to see the most frequent noise levels ranges.
+
+A sample chart is below:
+
+![OrbiwanImages]({{ page.image_path }}/statics_graph.png)
+
+![OrbiwanImages]({{ page.image_path }}/Statics.png)
+
+**Noise Distribution (Percentage)**
+
+This chart is similar to Noise Distribution chart with Data counts. The only difference here is that the values on y-axis are in percentage.
+
+A sample chart is below:
+
+![OrbiwanImages]({{ page.image_path }}/Distribution_percentage.png)
+
+![OrbiwanImages]({{ page.image_path }}/D.png)
+
+
+How the chart is generated ?
+   
+   - For the given duration, tag, location, device filters, we collect the data from database.
+   - f we have data like (in dB) - 30, 45.5, 43, 42, 46, 50, 60, 65, 71, 73, 74, 75, 70, 67, 64, 59, 54, 50, 47, 80 And we want total 10 bins. - Min value in data = 30 dB - Max value in data = 80 dB - Difference is = 80 - 30 = 50 dB - Each bin will have 50 / 10 = 5dB - Then our bins will be - - min_value (30) - (30 + 5) => 30-35 - 35 - 40, 40-45, 45-50… and so on.
+   - For first bin(30dB-35dB) -> 30, => 1 For bin(45dB-50dB) -> 45.5, 46, 47 => 3 and for all bins are evaluated and plotted.
+   - Then all bins are calculated with averaging done on dB values. Since the distribution is actually done by libraries. And in this case, we are looking at the averaging of noise parameter dB values only.
+
+   <!--- For Sabra - These dB values are converted to linear - Then averaging is done on the linear values - The average value is converted back to dB.
+
+   - Otherwise, - The averaging is done directly on dB values.-->
+
+
+
+**Noise During the Day (Bar Plot)**
+
+For each hour of the day, the noise levels are averaged and plotted using this chart. Similar to the box plot version of this chart allows us to see the hours when the maximum noise is measured or when the noise is low.
+
+This chart also shows a pattern similar to average 24 hour. Although since average 24 hours chart has duration bucket as 15 min, that gives us a more detailed view of noise average. However, we can get a fair idea about the pattern that noise follows throughout the day.
+
+![OrbiwanImages]({{ page.image_path }}/Noise_during_the_day_bar.png)
+
+![OrbiwanImages]({{ page.image_path }}/Noise_during_the_day.png)
+
+How the chart is generated?
+
+   - For the given duration, tag, location, device filters, we collect the data from database.
+   - Each data row has epoch (time at UTC)
+   - All these epochs are converted to location’s local time
+   - Using the this time, we find the hour of day
+   - For each hour the data is grouped and average is calculated
+   - Averaging is done on dB values and not on the linear value
+     - Averaging is to be done on linear values
+   - Then the data is plotted
+     - 1h on x-axis says = 00:00 to 01:00 hour
+     - 4h on x-axis says = 03:00 to 04:00 hour
+
+If we have data like (in dB) - 45, 43, 42, 46, 50, 60, 65, 71, 73, 74, 75, 70, 67, 64, 59, 54, 50, 47
+
+For Sabra - These dB values are converted to linear - Then averaging is done on the linear values - The average value is converted back to dB.
+
+Otherwise, - The averaging is done directly on dB values.
+
+**Noise During the Day (Box Plot)**
+
+Box plots can help to understand the median values, minimum, maximum along with outliers. In this chart we have tried to plot the noise levels for each hour of the day. This chart also gives an idea about the hours which are most noisy and quiet.
+
+A sample chart is shown below:
+
+![OrbiwanImages]({{ page.image_path }}/Box_Plot.png)
+
+![OrbiwanImages]({{ page.image_path }}/Box_Plot_Statistic.png)
+
+How the chart is generated ?
+  
+   - For the given duration, tag, location, device filters, we collect the data from database.
+   - Each data row has epoch (time at UTC)
+   - All these epochs are converted to location’s local time
+   - Using the this time, we find the hour of day
+   - For each hour the data is grouped and q1, q2, q3, iqr, upper and lower bounds are calculated q1 = 
+groups.quantile(q=0.25) q2 = groups.quantile(q=0.5) q3 = groups.quantile(q=0.75) iqr = q3 - q1 upper = q3 + 1.5iqr lower = q1 - 1.5iqr.
+   - Then the data is plotted
+      - 1h on x-axis says = 00:00 to 01:00 hour
+      - 4h on x-axis says = 03:00 to 04:00 hour
+
+If we have data like (in dB) - 45, 43, 42, 46, 50, 60, 65, 71, 73, 74, 75, 70, 67, 64, 59, 54, 50, 47
+
+<!--For Sabra - These dB values are converted to linear - Then averaging is done on the linear values - The average value is converted back to dB
+Otherwise, - The averaging is done directly on dB value-->
+
+**Occurrence of Noise Levels During the Day**
+
+If you’re interested to know about the distribution of noise levels each hour, this chart is for you to visualise. For each hour, we can see the noise levels occurrence with color coding. The dark colored cell shows that the most noise levels are seen around it.
+
+![OrbiwanImages]({{ page.image_path }}/Occurence.png)
+
+![OrbiwanImages]({{ page.image_path }}/Occurence_Statistic.png)
+
+How the chart is generated ?
+  - For the given duration, tag, location, device filters, we collect the data from database.
+  - Each data row has epoch (time at UTC)
+  - All these epochs are converted to location’s local time
+  - Using the this time, we find the hour of day
+  - Then we convert the noise dB value to integer - For simplification
+  - For each hour the data is grouped and counting is done for each unique noise dB value
+  - Then the data is plotted in a way that 
+     - x-axis shows the time
+     - y-axis shows all unique noise dB value 
+     - for y-axis, we color all x-y meeting rectangle as per the count.
+     - 1h on x-axis says = 00:00 to 01:00 hour
+     - 4h on x-axis says = 03:00 to 04:00 hour
+
+
+
+<!--**Accumulated Average**
 
 It is possible to display the cumulative average values between the two dates selected by the user. For each parameter selected, the noise level is accumulated for day and night values. The difference between day and night value is also plotted.
 
@@ -777,7 +1081,7 @@ There are few common things for each chart:
 
 - Day and night indication lines: The grey lines(as a pulse) on the chart indicate day(high) and night period(low). Applicable for Average 15 min and Average OPB periods.
 
-- Weekday and Weekend indication lines: The grey dashed lines(as a pulse) on the chart indicate weekdays (high), and weekends(low). Applicable for Average 15 min and Average OPB periods.
+- Weekday and Weekend indication lines: The grey dashed lines(as a pulse) on the chart indicate weekdays (high), and weekends(low). Applicable for Average 15 min and Average OPB periods.-->
 
 ### Histogram
 
@@ -1012,23 +1316,35 @@ The figure below shows add group screen which allows users to add a new group. T
 ![OrbiwanImages]({{ page.image_path }}/TabAdd.png)
 
 
-## Configuration
+<!--## Configuration
 
-After Account the next tab is Configuration. In the Configuration tab the user will be able to configure their own rules for Events which can also be considered as an alarm. To create an Event follow the steps given below:
+After Account the next tab is Configuration. In the Configuration tab the user will be able to configure their own rules for Events which can also be considered as an alarm. To create an Event follow the steps given below:-->
 
-### Global Threshold
+## Global Threshold
 
-This section allows the user to configure the thresold of the noise parameter. This thresold can be later assigned to a rule which will enable the application to raise the Events.
+The rule engine in the app can use the variables instead of static values. These variables are called as Global Threhsolds. If a tenant is using the periods (i.e. Using Periods is checked in Tenant Profile), then for all defined periods, users can set threshold values. While evaluating the rule, corrosponding threshold value will be used. If the 
+rule was being evaluated on a data of night period of a weekend, the threshold will be used of weekend night time.
+
+The following screenshot shows the Global Thresholds listing. 
+
+<!--This section allows the user to configure the thresold of the noise parameter. This thresold can be later assigned to a rule which will enable the application to raise the Events.
 
 Global Threshold is used to set the threshold value for the designated parameter which can be used to alert the user when the parameters threshold value is reached.
 
-The User can add the Global Threshold by clicking the **Add Threshold** button as shown below:
+The User can add the Global Threshold by clicking the **Add Threshold** button as shown below:-->
 
 ![OrbiwanImages]({{ page.image_path }}/GlobalThreshold.png)
 
-Once the values are entered into the desired parameters click on **Add** to add the global threshold.
+The columns are:
 
-### Event Definition
+|Column | Description|
+|-------|------------|
+|Name | Name of the Global Threshold, below the name variable name is printed. |
+| Parameter | Thresholds defined for each parameter. |
+| Action | Action column allows users to perform an action. |
+
+
+## Event Definition
 
 When rules are evaluated and the result is true, then an event is raised. We can specify which event should be raised. Those event types are defined using this page.
 
@@ -1111,6 +1427,8 @@ These triggers allow rules to be run at every 4 hours, 6 hours, midnight, every 
 Current baseline, Count Data.
    - For WHEN_NEW_DATA_IS_RECEIVED, you will be able to use - Check Threshold.
 
+  More about the functions can be learned later in this chapter.
+
 The following screenshot shows the rules listing.
 
 ![OrbiwanImages]({{ page.image_path }}/RulesPage.png)
@@ -1134,6 +1452,8 @@ As soon as users click on Add Rule button, they are presented with the following
 
 Only the name, description and trigger are visible. As soon as you select trigger, then the rest of the fields become visible and you can continue building the rule.
 
+For example, in the following screen we are building a rule to check data count for all locations(individually) grouped as noise_robots group, every hour.
+
 ![OrbiwanImages]({{ page.image_path }}/Add-Rule.png)
 
 The fields are as -
@@ -1152,17 +1472,18 @@ The fields are as -
 ### Edit Rule
 Following screen allows us to add/edit a rule.
 
-![OrbiwanImages]({{ page.image_path }}/Edit-Rule01.png)
+![OrbiwanImages]({{ page.image_path }}/Edit_rule.png)
 
-![OrbiwanImages]({{ page.image_path }}/Edit-Rule02.png)
+The figure above shows the edit screen for a rule named RelNoiseCheck.. The rule is evaluated every hour, for all locations of Airport_LeGrandSaconnex group individually to check the relative value of Leq. If the value is less than 100dB, the event TestRelNoise is raised.
 
-The figure above shows the edit screen for a rule named Noise Level Check in School and Church. The rule is evaluated every hour, for all locations of south_devices group individually to check the relative value of Leq. If the value is less than 100dB, the event TestRelNoise is raised.
+This rule was created using the interactive rule builder. We can see the generated rule definition (code part) by clicking the Advanced button:
 
-This rule was created using the interactive rule builder. We can see the generated rule definition (code part) by clicking the Advanced button -
+![OrbiwanImages]({{ page.image_path }}/Edit_rule_adv.png)
+
 
 We can see that the python code is present as -
 
-(check_current_baseline ( start_time, end_time,  [], location_ids,  'Leq', '>=', $leq.Leq  ))
+*(check_relative_value ( start_time, end_time,  ["d94a66f0-40e3-40ee-b6d3-c3d3dddaf2cb"], location_ids,  'Leq', '<', 100  ))*
 
 This python function check_current_baseline is going to run for the given tag_ids, location_ids constrained 
 in start_time and end_time.
@@ -1179,63 +1500,91 @@ If it is to be run on individual location, then location_ids will have maximum 1
 
 Following functions can be used while defining a rule.
 
-   - check_thresholds: This function checks the threshold value of selected parameter of incoming data.
-   - check_current_baseline: This function checks the current baseline of the data for given input and compare it against the given value.
-   - check_relative_value: This function checks the relative value of the data for given input and compare it against the given value.
-   - compare_data: This will allow you to compare two ore more different tags for a common function. With this function, you will not be able to run the rule separately for each location.
-   - count_data: This function counts the data for given input and compare it against the given value.
+   - **check_thresholds:** This function checks the threshold value of selected parameter of incoming data.
+   - **check_current_baseline:** This function checks the current baseline of the data for given input and compare it against the given value.
+   - **check_relative_value:** This function checks the relative value of the data for given input and compare it against the given value.
+   - **compare_data:** This will allow you to compare two ore more different tags for a common function. With this function, you will not be able to run the rule separately for each location.
+   - **count_data:** This function counts the data for given input and compare it against the given value.
 
 ### Rule Functions : Advanced Mode
 
 While defining a rule, users can choose one ore more functions to be evaluated. These functions can be used in Advanced mode. Also, When a rule is saved in interactive mode, it is compiled as the combination of the these functions.
 
-   - **check_thresholds:** Function to check threshold. For usage in rules with trigger - 
-WHEN_NEW_DATA_IS_RECEIVED
-
-  - check_threshold(noise_param, operator, value) –> Returns True / False.
+  - **check_thresholds:** Function to check threshold. For usage in rules with trigger- WHEN_NEW_DATA_IS_RECEIVED.
+   *check_threshold(noise_param, operator, value) –> Returns True / False.*
      - noise_param can be one of - [‘Leq’, ‘Lmin’, ‘Lmax’, ‘L10’, ‘L50’, ‘L90’, ‘L95’].
-     - operator can be one of - [‘>’, ‘<’, ‘>=’, ‘<=’, ‘==’].
-     - value will be a number or a variable using global threshold.
+    - operator can be one of - [‘>’, ‘<’, ‘>=’, ‘<=’, ‘==’].
+    - value will be a number or a variable using global threshold.
 
    **Returns** True/False
 
+       Examples:
+       Check the parameter value of an incoming data.
+       check_threshold('Lmin', '>=', 65)Check the parameter value of an incoming data.check_threshold('Lmax', '>', $global_th.Lmax)
 
-   - **check_current_baseline:** Function to check current baseline. For usage in rules with trigger - 
+
+- **check_current_baseline:** Function to check current baseline. For usage in rules with trigger - 
 EVERY_X_HOURS i.e. Periodic checks
-
-check_current_baseline(start_time, end_time, tag_ids, location_ids, noise 
-params,operator, value) –> Returns True / False.
-
+*check_current_baseline(start_time, end_time, tag_ids, location_ids, noise 
+params,operator, value) –> Returns True / False.*
    - start_time - variable is available as per period range. format - epoch.
    - end_time - variable is available as per period range. format - epoch.
    - noise_param can be one of - [‘Leq’, ‘Lmin’, ‘Lmax’, ‘L10’, ‘L50’, ‘L90’, ‘L95’].
    - operator can be one of - [‘>’, ‘<’, ‘>=’, ‘<=’, ‘==’].
    - value will be a number or a variable using global threshold.
 
+   **Returns** True/False
+
+        Examples:
+        Check the current baseline value of a given tag_id, paramter against a given value.
+
+        check_current_baseline ( start_time, end_time["97ce4ee2-df9e-4042-956e-011aa885aa81"], [], 'Leq', '<', 10 )
+
+        Check the current baseline value of a given tag_id, paramter against a given value. The value can also be specified using a global threshold.
+
+        check_current_baseline ( start_time, end_time, ["97ce4ee2-df9e-4042-956e-011aa885aa81"], [], 'Leq', '<', $global_th.Lmax)
+
+   - **check_relative_value:** 
+   Function to check relative value. For
+   usage in rules with trigger - EVERY_X_HOURS i.e. Periodic checks check_relative_value (start_time, end_time, tag_ids, location_ids, noise params,operator, value) –> Returns True/False
+     - start_time - variable is available as per period range. format - epoch.
+     -  end_time - variable is available as per period range. format - epoch.
+     - noise_param can be one of - [‘Leq’, ‘Lmin’, ‘Lmax’, ‘L10’, ‘L50’, ‘L90’, ‘L95’].
+     - operator can be one of - [‘>’, ‘<’, ‘>=’, ‘<=’, ‘==’].
+     - value will be a number or a variable using global threshold.
+
 **Returns** True/False
 
-   - **check_relative_value:** Function to check relative value. For usage in rules with trigger - EVERY_X_HOURS 
-i.e. Periodic checks
-check_relative_value(start_time, end_time, tag_ids, location_ids, noise 
-params,operator, value) –> Returns True / False
-– start_time - variable is available as per period range. format - epoch.
-– end_time - variable is available as per period range. format - epoch.
-– noise_param can be one of - [‘Leq’, ‘Lmin’, ‘Lmax’, ‘L10’, ‘L50’, ‘L90’, ‘L95’].
-– operator can be one of - [‘>’, ‘<’, ‘>=’, ‘<=’, ‘==’].
-– value will be a number or a variable using global threshold.
+    Examples:
+    - Check the relative value of a given tag_id, paramter against a given value. 
 
-**Returns** True/False
+     check_relative_value ( start_time, end_time, ["97ce4ee2-df9e-4042-956e-011aa885aa81"], [], 'Leq', '<', 10 ) 
 
-   - **count_data:** Function to get the data count. For usage in rules with trigger - EVERY_X_HOURS i.e. Periodic checks.
+    Check the relative value of a given tag_id, paramter against a given value. The value can also be specified using a global threshold.
 
-count_sensor_data(start_time, end_time, tag_ids, location_ids) –> Returns a number
+    check_relative_value ( start_time, end_time, ["97ce4ee2-df9e-4042-956e-011aa885aa81"], [], 'Leq', '<', $global_th.Lmax)
 
-   - start_time - variable is available as per period range. format - epoch.
-   - end_time - variable is available as per period range. format - epoch.
-   - location_ids - Array of location ids, if not specified, each location id of tag will be processed.
-   - tag_ids - Array of tag_ids, if not specified, each tag assigned to rule will be processed.
+   - **count_data:** Function to get the data count. For usage in rules with trigger - EVERY_X_HOURS i.e Periodic checks.
+     - count_sensor_data(start_time, end_time, tag_ids, location_ids) –> Returns a number  
+     - start_time - variable is available as per period range. format - epoch.
+      - end_time - variable is available as per period range. format - epoch.
+     - location_ids - Array of location ids, if not specified, each location id of tag will be processed.
+     - tag_ids - Array of tag_ids, if not specified, each tag assigned to rule will be processed.
 
 **Returns:** number of data count.
+
+    Examples:
+    When no location id is specified but tag_ids are specified
+    count_sensor_data(start_time, end_time, tag_ids, []) == 0 
+
+    When location ids and tag ids are not specified
+    count_sensor_data(start_time, end_time) == 0
+
+    When specific location id is mentioned and tag_ids are left empty
+    count_sensor_data(start_time, end_time, [], ['2e079cb7-3181-44b2-920cd23c96736bbd']) == 0
+
+    When location id is left blank and specific tag_ids are mentioned
+    count_sensor_data(start_time, end_time, ['72645c0d-1978-467e-9003-b473701682f7'], []) == 0
 
    - **get_sensor_data:** Function to get the data as DataFrame
 
@@ -1251,10 +1600,45 @@ count_sensor_data(start_time, end_time, tag_ids, location_ids) –> Returns a nu
 Pandas Dataframe is a table like structures but highly optimised for data analysis. To know more about it 
 please visit: **[https]://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html**
 
+    Examples:
+    When no location id is specified but tag_ids are specified
+    df = get_sensor_data(start_time, end_time, [], tag_ids)
+
+    When location ids and tag ids are not specified
+    df = get_sensor_data(start_time, end_time)
+
+    When specific location id is mentioned and tag_ids are left empty
+    df = get_sensor_data(start_time, end_time, ['2e079cb7-3181-44b2-920cd23c96736bbd'], [])
+
+    When location id is left blank and specific tag_ids are mentioned
+    df = get_sensor_data(start_time, end_time, [], ['72645c0d-1978-467e-9003-b473701682f7'])
+
+    This function returns you the dataframe which can be used to get more details. Few examples below:
+
+    To get the data count
+    counts = df.shape[0] # Shape function gives you the [rows, column], df.shape[0] will give you number of rows
+
+    To get the data count for all Leq > 60 dB
+    counts = df[df.Leq > 60].shape[0] # Shape function gives you the [rows, column], df.shape[0] will give you number of rows
+
+    To get the list of all column
+    columns = df.columns
+
+    Take a mean(average) of all Leq in the dataframe
+    df['Leq_linear'] = df.Leq.apply(lambda x: 10 ** (x/10)) # converting the dB value to linear scale
+    mean_value_linear = df.Leq_linear.mean()
+    mean_value_dB = 10 * math.log10(mean_value_linear)
+
+    Take a standard deviation of all Leq
+    Take a standard deviation of all Leq
+    
 
 
 
-## Accounts
+
+
+
+<!--## Accounts
 
 Allows administrators to manage users and Tenants (for Super Admin User).
 
@@ -1283,7 +1667,7 @@ The admin can also configure the rights and the tabs that the tenat and its asso
 ![OrbiwanImages]({{ page.image_path }}/DataSource-Profile-001.png) -->
 
 
-### Users
+## Users
 
 Users page allows administrators to manage users. The figure below is a glimpse of the page.
 
@@ -1302,7 +1686,7 @@ The columns in the table are -
 
 This page allows administrators to manage the users. They should be able to add more users, change passwords, and allow users to be admin.
 
-Administrators can also manage the permission to view the Jupyter notebook. If user is not allowed to view the jupyter notebook, he/she will not be able to see Jupyter tab in the menu.
+<!--Administrators can also manage the permission to view the Jupyter notebook. If user is not allowed to view the jupyter notebook, he/she will not be able to see Jupyter tab in the menu.-->
 
 Users can filter the list of users for - username, name, email, Administrator access, Jupyter access etc. Users can sort the list by name. The action column allows adminstrators to edit/delete users, login forwarding and to manage user preferences.
 
@@ -1313,18 +1697,6 @@ A Normal User and Admin User can update their own preferences and for others. A 
 The figure below shows the user preferences screen.
 
 ![OrbiwanImages]({{ page.image_path }}/setting.png)
-
-
-The figure below is the add user screen where administrators can add a user. Required fields are:
-
-| Field            | Mandatory | Description                                                                                 |
-| ---------------- | --------- | ------------------------------------------------------------------------------------------- |
-| Name             | N         | Display name of a user.                                                                     |
-| Username         | Y         | Required Username for the user.                                                             |
-| Email            | Y         | Email address which is also used as a login.                                                |
-| Password         | Y         | Password must contain at least 1 special character, uppercase, lowercase letter and number. |
-| Confirm Password | Y         | Same as Password.                                                                           |
-| Role             | Y         | The role of the user. The user can be Administrator, Normal User or Read-only.              |
 
 
 ![OrbiwanImages]({{ page.image_path }}/User_Preferences.png)
@@ -1355,10 +1727,11 @@ Sometimes, it is useful to see how the UI appears for other user. System Adminis
 The login forwarding icon in the user table allows System Admins to perform this. If the login forwarding is on, the User menu in the Menubar changes.
 
    - **Before Login Forwarding**
-   <!--Image-->
+   ![OrbiwanImages]({{ page.image_path }}/Before_log_forwarding.png)
+
 
    - **After Login Forwarding**
-   <!--Image-->
+   ![OrbiwanImages]({{ page.image_path }}/After_log_forwarding.png)
 
 
 Post login forwarding, System admin can choose to return as Admin and the UI will be same as before login forwarding.
@@ -1416,7 +1789,7 @@ Whatever image url is provided, the image will be loaded. This is where the Char
 
 At the other hand, if you want to add a linked chart (i.e. chart should use the start/end dates from report), then you copy the link and paste in image url placeholder. Once you do, an image like below appears instead of chart. This is done because the chart is regenarated using the start/end date of report. It is possible that user might put the chart image first and then start_date, end_date for the report. In this case, report while adding chart, report start/end dates would be missing. Hence, once the report is saved, a new request in the backend is fired to generate respective chart. All this is done at the backend and user does not need to worry about anything
 
-<!--Image-->
+![OrbiwanImages]({{ page.image_path }}Report_Content_Image.png)
 
 ## View and Download Report
 
@@ -1442,7 +1815,7 @@ This page allows users to access jupyter hub and notebooks. Using these notebook
 
 Following is a glimpse of the page.
 
-<!--Image-->
+![OrbiwanImages]({{ page.image_path }}/Jupiter.png)
 
 ### Accessing Your Notebooks
 
@@ -1484,8 +1857,7 @@ We can see that the name for global threshold was changed, and since the name wa
 
 Moreover, if user wants a git like diff View diff button can be used:
 
-![OrbiwanImages]({{ page.image_path }}/Audit_trail_single_message_detail.png)
-
+![OrbiwanImages]({{ page.image_path }}/Audit_history_list_expanded.png)
 
 This compares the properties line by line and allows users to see things in details.
 
@@ -1817,4 +2189,3 @@ Following figure shows that when username is clicked the links appear:
 ![OrbiwanImages]({{ page.image_path }}/UserSettings.png)
 
 ![OrbiwanImages]({{ page.image_path }}/UserSettings001.png)-->
-

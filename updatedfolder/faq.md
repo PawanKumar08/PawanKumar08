@@ -59,7 +59,3 @@ page_type: 'sub-page'
 
 - Yes we can push the data to other external applications.
 
-### Issue while updating device Firmware?
-
-- Will update it in next session.
-
